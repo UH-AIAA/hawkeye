@@ -20,6 +20,7 @@ typedef struct {
 // int hawkeye_vector3_norm(hawkeye_vector3_t* v, hawkeye_vector3_t* u);
 // int hawkeye_vector3_dotp(hawkeye_vector3_t* a, hawkeye_vector3_t* b, float* r);
 // int hawkeye_vector3_xpro(hawkeye_vector3_t* a, hawkeye_vector3_t* b, hawkeye_vector3_t* r);
+// int hawkeye_vector3_theta(hawkeye_vector3_t* a, , hawkeye_vector3_t* b, float* r);
 
 
 #endif

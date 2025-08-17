@@ -92,4 +92,29 @@ int hawkeye_vector3_xpro(hawkeye_vector3_t* a, hawkeye_vector3_t* b, hawkeye_vec
 }
 
 // angle between vectors
-// cross product = ||a||*||b||*cos(theta)
+// dot product = ||a||*||b||*cos(theta)
+// uses RADIANS
+int hawkeye_vector3_theta(hawkeye_vector3_t* a, hawkeye_vector3_t* b, float* r) {
+    if(a == NULL || b == NULL || r == NULL) {
+        return 1;
+    }
+
+    // setup variables
+    float a_mag, b_mag, dot_product;
+
+    // get cross product and magnitudes
+    hawkeye_vector3_dotp(a, b, &dot_product);
+    a_mag = sqrtf(
+        (a->x * a->x) + 
+        (a->y * a->y) + 
+        (a->z + a->z) );
+    b_mag = sqrtf(
+        (b->x * b->x) + 
+        (b->y * b->y) + 
+        (b->z + b->z) );
+
+    // compute theta
+    *r = acosf(dot_product / (a_mag * b_mag));
+
+    return 0;
+}
