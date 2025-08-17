@@ -1,0 +1,95 @@
+#include <scr_hawkeye.h>
+
+int hawkeye_vector3_add(hawkeye_vector3_t* a, hawkeye_vector3_t* b, hawkeye_vector3_t* r) {
+    if(a == NULL || b == NULL || r == NULL) {
+        return 1;
+    }
+    r->x = a->x + b->x;
+    r->y = a->y + b->y;
+    r->z = a->z + b->z;
+
+    return 0;
+}
+
+int hawkeye_vector3_sub(hawkeye_vector3_t* a, hawkeye_vector3_t* b, hawkeye_vector3_t* r) {
+    if(a == NULL || b == NULL || r == NULL) {
+        return 1;
+    }
+    r->x = a->x - b->x;
+    r->y = a->y - b->y;
+    r->z = a->z - b->z;
+
+    return 0;
+}
+
+int hawkeye_vector3_mul(hawkeye_vector3_t* a, hawkeye_vector3_t* b, hawkeye_vector3_t* r) {
+    if(a == NULL || b == NULL || r == NULL) {
+        return 1;
+    }
+    r->x = a->x * b->x;
+    r->y = a->y * b->y;
+    r->z = a->z * b->z;
+
+    return 0;
+}
+
+int hawkeye_vector3_div(hawkeye_vector3_t* a, hawkeye_vector3_t* b, hawkeye_vector3_t* r) {
+    if(a == NULL || b == NULL || r == NULL) {
+        return 1;
+    }
+    if(b->x == 0 || b->y == 0 || b->z == 0) {
+        return 2;
+    }
+    r->x = a->x / b->x;
+    r->y = a->y / b->y;
+    r->z = a->z / b->z;
+
+    return 0;
+}
+
+// normalize!
+// v / ||v|| (v divided by the magnitude of v)
+int hawkeye_vector3_norm(hawkeye_vector3_t* v, hawkeye_vector3_t* u) {
+    if(v == NULL || u == NULL) {
+        return 1;
+    }
+
+    float mag_v = sqrtf(    // get magnitude!
+        (v->x * v->x) + 
+        (v->y * v->y) + 
+        (v->z + v->z) );
+
+    u->x = v->x / mag_v;    // divide x component
+    u->y = v->y / mag_v;    // divide y component
+    u->z = v->z / mag_v;    // divide z component
+
+    return 0;
+}
+
+// dot product
+int hawkeye_vector3_dotp(hawkeye_vector3_t* a, hawkeye_vector3_t* b, float* r) {
+    if(a == NULL || b == NULL || r == NULL) {
+        return 1;
+    }
+
+    // compute dot prodcut, assign to result
+    *r = (a->x * b->x) + (a->y * b->y) + (a->z * b->z);
+
+    return 0;
+}
+
+// cross product
+int hawkeye_vector3_xpro(hawkeye_vector3_t* a, hawkeye_vector3_t* b, hawkeye_vector3_t* r) {
+    if(a == NULL || b == NULL || r == NULL) {
+        return 1;
+    }
+    
+    r->x = (a->y * b->z) - (a->z * b->y);   // first determinant
+    r->y = (a->z * b->x) - (a->x * b->z);   // second determinant
+    r->z = (a->x * b->y) - (a->y * b->x);   // third determinant
+
+    return 0;
+}
+
+// angle between vectors
+// cross product = ||a||*||b||*cos(theta)
