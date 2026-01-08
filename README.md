@@ -2,6 +2,8 @@
 
 Hawkeye is SCR's GNC library. Eventual goals include:
 - EKF for rocket position
+- IMU calibration algorithms
+- Numerical integrator?
 - airbrake control??
 - apogee detection??
 
