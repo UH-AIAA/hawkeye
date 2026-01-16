@@ -57,7 +57,7 @@ int hawkeye_mathutil_vector3_norm(hawkeye_vector3_t* v, hawkeye_vector3_t* u) {
     float mag_v = sqrtf(    // get magnitude!
         (v->x * v->x) +
         (v->y * v->y) +
-        (v->z + v->z) );
+        (v->z * v->z) );
 
     u->x = v->x / mag_v;    // divide x component
     u->y = v->y / mag_v;    // divide y component
