@@ -1,5 +1,4 @@
 // TODO: [NS] add license header
-#include <stdio.h>
 #include <cmocka.h>
 
 #include "scr_hawkeye.h"
@@ -74,10 +73,6 @@ static void vector3_sub(void **state)
     // test nominal case
     retval = hawkeye_mathutil_vector3_sub(&a, &b, &r);
     assert_int_equal(retval, 0);
-
-    // printf("r.y = %f\n", r.y);
-    fflush(stdout);
-
     assert_double_equal(r.x, -4.16231, HAWKEYE_DBL_EPSILON);
     assert_double_equal(r.y, -0.90415, HAWKEYE_DBL_EPSILON);
     assert_double_equal(r.z, 7.88495, HAWKEYE_DBL_EPSILON);
