@@ -3,7 +3,13 @@
 
 #include "scr_hawkeye.h"
 
+typedef enum {
+    FILT_SUCCESS = 0,
+    FILT_ERR_NULLPTR = 1,
+    FILT_ERR_INVALID_MULT = 2,
+} FILT_Err_t;
+
 // simple online low-pass filter
-uint8_t HWK_FILT_lowPass(float raw, float* filtered, const float alpha);
+FILT_Err_t HWK_FILT_lowPass(float raw, float* filtered, const float alpha);
 
 #endif

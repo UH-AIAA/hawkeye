@@ -12,11 +12,22 @@
  *        this is an "online" algorithm, so the state of the filter is
  *        encapsulated in that variable
  */
-uint8_t HWK_FILT_lowPass(float raw, float* filtered, const float alpha)
+FILT_Err_t HWK_FILT_lowPass(float raw, float* filtered, const float alpha)
 {
+    // null pointer check
+    if(filtered == NULL)
+    {
+        return FILT_ERR_NULLPTR;
+    }
+    // alpha must be between 0 and 1
+    if(alpha < 0 || alpha > 1)
+    {
+        return FILT_ERR_INVALID_MULT;
+    }
+
     // update lowpass IIR in place
     *filtered = alpha * raw + (1 - alpha) * (*filtered);
 
     // success
-    return 0;
+    return FILT_SUCCESS;
 }
