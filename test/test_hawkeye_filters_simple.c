@@ -35,3 +35,42 @@ void FILT_lowPass(void **state)
 
 
 }
+
+void FILT_Welford(void **state)
+{
+    (void)state;
+
+    float testInput[4] = {1.0, 2.0, 3.0, 6.0};
+    float means[4] = {1.0, 1.5, 2, 3};
+    float variances[4] = {0.0, 0.5, 1, 4.666667};
+
+    float mean = 0;
+    float variance = 0;
+    float mediaryUnit = 0;
+    uint32_t n = 0;
+
+    // test nullptr variations
+    FILT_Err_t status = FILT_SUCCESS;
+
+    status = HWK_FILT_Welford(0, NULL, &variance, &mediaryUnit, &n);
+    assert_int_equal(status, FILT_ERR_NULLPTR);
+
+    status = HWK_FILT_Welford(0, &mean, NULL, &mediaryUnit, &n);
+    assert_int_equal(status, FILT_ERR_NULLPTR);
+
+    status = HWK_FILT_Welford(0, &mean, &variance, NULL, &n);
+    assert_int_equal(status, FILT_ERR_NULLPTR);
+
+    status = HWK_FILT_Welford(0, &mean, &variance, &mediaryUnit, NULL);
+    assert_int_equal(status, FILT_ERR_NULLPTR);
+
+    // run nominal test
+    for(int i = 0; i < 4; i++)
+    {
+        status = HWK_FILT_Welford(testInput[i], &mean, &variance, &mediaryUnit, &n);
+        assert_int_equal(status, FILT_SUCCESS);
+        assert_int_equal(n, i + 1);
+        assert_float_equal(means[i], mean, 1E-6);
+        assert_float_equal(variances[i], variance, 1E-6);
+    }
+}

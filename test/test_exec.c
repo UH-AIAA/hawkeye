@@ -9,6 +9,7 @@ void vector3_sub(void **state);
 
 // hawkeye_filters_simple
 void FILT_lowPass(void **state);
+void FILT_Welford(void **state);
 
 // hawkeye_utilities
 void UTIL_updateRingBuffer(void **state);
@@ -20,6 +21,7 @@ int main(int argc, char* argv[]) {
         cmocka_unit_test(vector3_add),
         cmocka_unit_test(vector3_sub),
         cmocka_unit_test(FILT_lowPass),
+        cmocka_unit_test(FILT_Welford),
         cmocka_unit_test(UTIL_updateRingBuffer),
         cmocka_unit_test(UTIL_unwrapRingBuffer),
     };

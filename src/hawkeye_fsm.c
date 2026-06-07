@@ -1,7 +1,7 @@
 #include "hawkeye_fsm.h"
+#include "hawkeye_filters_simple.h"
+#include <float.h>
 #include <stdint.h>
-
-// TODO: add DBZ checks to time step calculations etc
 
 
 /**
@@ -121,12 +121,58 @@ FSM_Err_t HWK_FSM_apogeeDetectAltVel(float alt,
 
 FSM_Err_t HWK_FSM_landingDetectAlt(float alt,
                                    uint8_t* counter,
-                                   const uint8_t reqCount)
+                                   const uint8_t reqCount,
+                                   const uint8_t divThr)
 {
     // nullptr check
     if (counter == NULL)
     {
         return FSM_ERR_NULLPTR;
+    }
+
+    // var init
+    static float altMean = 0;  // mean altitude
+    static float altVariance = 0;  // variance in mean altitude
+    static float welfMU = 0;   // mediary unit for welford
+    static uint32_t n = 0;  // num iterations
+
+    // run Welford's on altitude
+    FILT_Err_t wStatus = HWK_FILT_Welford(alt, &altMean, &altVariance, &welfMU, &n);
+
+    // check status
+    if (wStatus != FILT_SUCCESS)
+    {
+        // reset filter
+        altMean = 0;
+        altVariance = 0;
+        welfMU = 0;
+        n = 0;
+        *counter = 0;
+
+        return FSM_NOOP;
+    }
+
+    // are we over our variance?
+    if (altVariance >= divThr)
+    {
+        // reset filter
+        altMean = 0;
+        altVariance = 0;
+        welfMU = 0;
+        n = 0;
+        *counter = 0;
+
+        return FSM_NOOP;
+    }
+
+    // update count
+    *counter += 1;
+
+    // are we done?
+    if (*counter == reqCount)
+    {
+        *counter = 0;
+        return FSM_UPDATE;
     }
 
     return FSM_NOOP;
