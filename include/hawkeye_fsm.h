@@ -33,4 +33,4 @@ FSM_Err_t HWK_FSM_apogeeDetectAltVel(float alt,
 FSM_Err_t HWK_FSM_landingDetectAlt(float alt,
                                    uint8_t* counter,
                                    const uint8_t reqCount,
-                                   const uint8_t divThr);
+                                   const float divThr);

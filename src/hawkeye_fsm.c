@@ -79,6 +79,8 @@ FSM_Err_t HWK_FSM_apogeeDetectAltVel(float alt,
     // step forward
     prevAlt = currAlt;
     currAlt = alt;
+    prevTime = currTime;
+    currTime = time;
 
     // if we have increasing altitude, apogee not even eligible
     if(currAlt > prevAlt)
@@ -122,7 +124,7 @@ FSM_Err_t HWK_FSM_apogeeDetectAltVel(float alt,
 FSM_Err_t HWK_FSM_landingDetectAlt(float alt,
                                    uint8_t* counter,
                                    const uint8_t reqCount,
-                                   const uint8_t divThr)
+                                   const float divThr)
 {
     // nullptr check
     if (counter == NULL)
@@ -166,7 +168,12 @@ FSM_Err_t HWK_FSM_landingDetectAlt(float alt,
     }
 
     // update count
-    *counter += 1;
+    if(n > 1)
+    {
+        // only update if it's not our first,
+        // variance is always zero on first run
+        *counter += 1;
+    }
 
     // are we done?
     if (*counter == reqCount)

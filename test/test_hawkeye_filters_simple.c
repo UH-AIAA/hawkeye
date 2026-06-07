@@ -2,8 +2,6 @@
 #include <cmocka.h>
 #include <hawkeye_filters_simple.h>
 
-#include <stdio.h>
-
 // test implementations!
 void FILT_lowPass(void **state)
 {

@@ -15,6 +15,11 @@ void FILT_Welford(void **state);
 void UTIL_updateRingBuffer(void **state);
 void UTIL_unwrapRingBuffer(void **state);
 
+// hawkeye_fsm
+void FSM_launchAccel(void **state);
+void FSM_apogeeAltVel(void **state);
+void FSM_landingAlt(void **state);
+
 // entry point
 int main(int argc, char* argv[]) {
     const struct CMUnitTest tests[] = {
@@ -24,6 +29,9 @@ int main(int argc, char* argv[]) {
         cmocka_unit_test(FILT_Welford),
         cmocka_unit_test(UTIL_updateRingBuffer),
         cmocka_unit_test(UTIL_unwrapRingBuffer),
+        cmocka_unit_test(FSM_launchAccel),
+        cmocka_unit_test(FSM_apogeeAltVel),
+        cmocka_unit_test(FSM_landingAlt),
     };
 
     return cmocka_run_group_tests(tests, NULL, NULL);
