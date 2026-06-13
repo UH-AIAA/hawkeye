@@ -28,7 +28,7 @@
 /**
  * NAME: HWK_FILT_lowPass
  * AUTH: Nathan Samuell
- * DESC: performs low pass filtering on some value
+ * DESC: performs weighted exponential moving average filtering on some value
  * RET:  0 on success
  * ARGS: float raw [IN]:           raw input value
  *       float* filtered [IN/OUT]: running total filtered value
@@ -36,6 +36,9 @@
  * NOTES: assumes that the input to filtered is kept track of elsewhere,
  *        this is an "online" algorithm, so the state of the filter is
  *        encapsulated in that variable
+ *
+ *        see link for more info:
+ *        https://kleinembedded.com/quick-and-simple-digital-filters-for-smoothing-and-dc-removal/
  */
 FILT_Err_t HWK_FILT_lowPass(float raw, float* filtered, const float alpha)
 {
