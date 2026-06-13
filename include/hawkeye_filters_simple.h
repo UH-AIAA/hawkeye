@@ -25,6 +25,10 @@
 #ifndef HAWKEYE_FILTERS_SIMPLE_H
 #define HAWKEYE_FILTERS_SIMPLE_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "scr_hawkeye.h"
 
 typedef enum {
@@ -39,5 +43,9 @@ FILT_Err_t HWK_FILT_lowPass(float raw, float* filtered, const float alpha);
 
 // simple online running, unweighted average
 FILT_Err_t HWK_FILT_Welford(float measurement, float* mean, float* variance, float* mediaryUnit, uint32_t* n);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

@@ -21,6 +21,13 @@
  * SOFTWARE.
 */
 
+#ifndef HAWKEYE_FSM_H
+#define HAWKEYE_FSM_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 
 #include "scr_hawkeye.h"
 
@@ -56,3 +63,10 @@ FSM_Err_t HWK_FSM_landingDetectAlt(float alt,
                                    uint8_t* counter,
                                    const uint8_t reqCount,
                                    const float divThr);
+
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif

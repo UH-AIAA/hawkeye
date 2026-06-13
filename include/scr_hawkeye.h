@@ -24,6 +24,10 @@
 #ifndef SCR_HAWKEYE_H
 #define SCR_HAWKEYE_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stddef.h>
 #include <math.h>
 #include <stdint.h>
@@ -81,5 +85,10 @@ int HWK_MATH_quadInterp(float x[],
                                float* a,
                                float* b,
                                float* c);
+
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
